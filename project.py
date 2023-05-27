@@ -1,7 +1,7 @@
 import streamlit as st
 import openai
 # Set up OpenAI API credentials
-openai.api_key = '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'
+openai.api_key = 'OPEN_AI_KEY'
 
 # Define Streamlit app layout
 def app():
