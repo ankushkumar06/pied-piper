@@ -15,7 +15,7 @@ def app():
     # Generate job description on button click
     if st.button("Generate"):
         if job_title and job_summary:
-            prompt = f"Title: {job_title}\nSummary: {job_summary}\nDescription:"
+            prompt = f"Give me the job description for {job_title} in the markdown format."
             max_tokens = 200  # Adjust the desired length of the generated job description
             response = openai.Completion.create(
                 engine='text-davinci-003',  # Choose the OpenAI language model
@@ -26,7 +26,20 @@ def app():
                 temperature=0.7  # Adjust the temperature for more conservative or creative outputs
             )
             generated_description = response.choices[0].text.strip()
-            st.write(generated_description)
+            st.markdown(generated_description)
+            # Now creating interview questions
+            prompt = f"Give me ten interview questions for {job_title} in the markdown format."
+            st.subheader("Generated Interview questions")
+            response = oa.Completion.create(
+                engine='text-davinci-003',  # Choose the oa language model
+                prompt=prompt,
+                max_tokens=max_tokens,
+                n=1,
+                stop=None,
+                temperature=0.7  # Adjust the temperature for more conservative or creative outputs
+            )
+            generated_description = response.choices[0].text
+            st.markdown(generated_description)
         else:
             st.write("Please enter the job title and summary.")
 
